@@ -1,0 +1,484 @@
+{
+  "title": "OOP task002 classes list",
+  "classes": [
+    {
+      "class": "Company",
+      "fields": [
+        {
+          "name": "webDepartment",
+          "class": "WebDepartment"
+        },
+        {
+          "name": "mobileDepartment",
+          "class": "MobileDepartment"
+        },
+        {
+          "name": "testDepartment",
+          "class": "TestDepartment"
+        },
+        {
+          "name": "hiredDevelopersCount",
+          "class": "number"
+        },
+        {
+          "name": "firedDevelopersCount",
+          "class": "number"
+        },
+        {
+          "name": "finishedProjectsCount",
+          "class": "number"
+        },
+        {
+          "name": "_unallocatedProjects",
+          "class": "Map",
+          "modifier": "private"
+        },
+        {
+          "name": "_projectsInWork",
+          "class": "Map",
+          "modifier": "private"
+        },
+        {
+          "name": "_doneProjects",
+          "class": "Array",
+          "modifier": "private"
+        }
+      ],
+      "methods": [
+        {
+          "name": "getNewProjects",
+          "return": "Project[]"
+        },
+        {
+          "name": "addUnallocated",
+          "param": [
+            {
+              "name": "projects",
+              "class": "Project[]"
+            }
+          ]
+        },
+        {
+          "name": "getProjectsInWorkArray",
+          "return": "Project[]"
+        },
+        {
+          "name": "getUnallocatedProjects",
+          "return": "Project[]"
+        },
+        {
+          "name": "allocateUnallocatedProjects"
+        },
+        {
+          "name": "fireIdleDeveloper",
+          "return": "Developer | undefined"
+        },
+        {
+          "name": "hireTotalDevelopers"
+        },
+        {
+          "name": "tickDay"
+        },
+        {
+          "name": "tickDevelopers"
+        },
+        {
+          "name": "tickProjects"
+        },
+        {
+          "name": "runDays",
+          "modifier": "static"
+        },
+        {
+          "name": "_filterIdleDeveloper",
+          "param": [
+            {
+              "name": "developerRecord",
+              "class": "Object"
+            }
+          ],
+          "modifier": "private"
+        },
+        {
+          "name": "_sortDescByDeveloperProjectsCount",
+          "param": [
+            {
+              "name": "a",
+              "class": "Object"
+            },
+            {
+              "name": "b",
+              "class": "Object"
+            }
+          ],
+          "modifier": "private"
+        }
+      ]
+    },
+    {
+      "class": "Developer",
+      "fields": [
+        {
+          "name": "daysWithoutWork",
+          "class": "number"
+        },
+        {
+          "name": "projectsCount",
+          "class": "number"
+        },
+        {
+          "name": "title",
+          "class": "string"
+        },
+        {
+          "name": "id",
+          "class": "number"
+        },
+        {
+          "name": "_daysWithoutWork",
+          "class": "number",
+          "modifier": "private"
+        },
+        {
+          "name": "_projectsCount",
+          "class": "number",
+          "modifier": "private"
+        },
+        {
+          "name": "_title",
+          "class": "string",
+          "modifier": "private"
+        }
+      ]
+    },
+    {
+      "class": "Department",
+      "methods": [
+        {
+          "name": "beginWork",
+          "return": "Developer[]",
+          "params": [
+            {
+              "name": "project",
+              "class": "Project"
+            }
+          ]
+        },
+        {
+          "name": "hireDevelopers",
+          "params": [
+            {
+              "name": "count",
+              "class": "number"
+            }
+          ]
+        },
+        {
+          "name": "allocateProject",
+          "return": "Map",
+          "params": [
+            {
+              "name": "projects",
+              "class": "Map"
+            }
+          ]
+        },
+        {
+          "name": "isMeetConditions",
+          "return": "boolean",
+          "params": [
+            {
+              "name": "project",
+              "class": "Project"
+            }
+          ]
+        },
+        {
+          "name": "tickDevelopers"
+        }
+      ],
+      "fields": [
+        {
+          "name": "freeDevelopers",
+          "class": "Map"
+        },
+        {
+          "name": "freeDevelopersArray",
+          "class": "Array"
+        },
+        {
+          "name": "_freeDevelopers",
+          "class": "Map",
+          "modifier": "private"
+        }
+      ]
+    },
+    {
+      "class": "WebDepartment",
+      "extends": "Department",
+      "methods": [
+        {
+          "name": "beginWork",
+          "return": "Developer[]",
+          "params": [
+            {
+              "name": "project",
+              "class": "Project"
+            }
+          ]
+        },
+        {
+          "name": "hireDevelopers",
+          "params": [
+            {
+              "name": "count",
+              "class": "number"
+            }
+          ]
+        },
+        {
+          "name": "allocateProject",
+          "return": "Map",
+          "params": [
+            {
+              "name": "projects",
+              "class": "Map"
+            }
+          ]
+        },
+        {
+          "name": "isMeetConditions",
+          "return": "boolean",
+          "params": [
+            {
+              "name": "project",
+              "class": "Project"
+            }
+          ]
+        },
+        {
+          "name": "tickDevelopers"
+        }
+      ],
+      "fields": [
+        {
+          "name": "freeDevelopers",
+          "class": "Map"
+        },
+        {
+          "name": "freeDevelopersArray",
+          "class": "Array"
+        },
+        {
+          "name": "_freeDevelopers",
+          "class": "Map",
+          "modifier": "private"
+        }
+      ]
+    },
+    {
+      "class": "MobileDepartment",
+      "extends": "Department",
+      "methods": [
+        {
+          "name": "beginWork",
+          "return": "Developer[]",
+          "params": [
+            {
+              "name": "project",
+              "class": "Project"
+            }
+          ]
+        },
+        {
+          "name": "hireDevelopers",
+          "params": [
+            {
+              "name": "count",
+              "class": "number"
+            }
+          ]
+        },
+        {
+          "name": "allocateProject",
+          "return": "Map",
+          "params": [
+            {
+              "name": "projects",
+              "class": "Map"
+            }
+          ]
+        },
+        {
+          "name": "isMeetConditions",
+          "return": "boolean",
+          "params": [
+            {
+              "name": "project",
+              "class": "Project"
+            }
+          ]
+        },
+        {
+          "name": "tickDevelopers"
+        }
+      ],
+      "fields": [
+        {
+          "name": "freeDevelopers",
+          "class": "Map"
+        },
+        {
+          "name": "freeDevelopersArray",
+          "class": "Array"
+        },
+        {
+          "name": "_freeDevelopers",
+          "class": "Map",
+          "modifier": "private"
+        }
+      ]
+    },
+    {
+      "class": "TestDepartment",
+      "extends": "Department",
+      "fields": [
+        {
+          "name": "freeDevelopers",
+          "class": "Map"
+        },
+        {
+          "name": "freeDevelopersArray",
+          "class": "Array"
+        },
+        {
+          "name": "_freeDevelopers",
+          "class": "Map",
+          "modifier": "private"
+        }
+      ],
+      "methods": [
+        {
+          "name": "beginWork",
+          "return": "Developer[]",
+          "params": [
+            {
+              "name": "project",
+              "class": "Project"
+            }
+          ]
+        },
+        {
+          "name": "hireDevelopers",
+          "params": [
+            {
+              "name": "count",
+              "class": "number"
+            }
+          ]
+        },
+        {
+          "name": "allocateProject",
+          "return": "Map",
+          "params": [
+            {
+              "name": "projects",
+              "class": "Map"
+            }
+          ]
+        },
+        {
+          "name": "isMeetConditions",
+          "return": "boolean",
+          "params": [
+            {
+              "name": "project",
+              "class": "Project"
+            }
+          ]
+        },
+        {
+          "name": "tickDevelopers"
+        }
+      ]
+    },
+    {
+      "class": "Factory",
+      "methods": [
+        {
+          "name": "createMany",
+          "return": "any[]",
+          "params": [
+            {
+              "name": "count",
+              "class": "number"
+            },
+            {
+              "name": "type",
+              "class": "Symbol"
+            }
+          ]
+        },
+        {
+          "name": "createOne",
+          "return": "Project | Developer",
+          "params": [
+            {
+              "name": "type",
+              "class": "Symbol"
+            },
+            {
+              "name": "args",
+              "class": "spread"
+            }
+          ]
+        }
+      ],
+      "fields": [
+        {
+          "name": "_instance",
+          "class": "Factory",
+          "modifier": "static"
+        }
+      ]
+    },
+    {
+      "class": "Project",
+      "methods": [
+        {
+          "name": "setNextStage"
+        }
+      ],
+      "fields": [
+        {
+          "name": "developerCount",
+          "class": "number"
+        },
+        {
+          "name": "daysOfDevelopmentCount",
+          "class": "number"
+        },
+        {
+          "name": "complexity",
+          "class": "any | number"
+        },
+        {
+          "name": "id",
+          "class": "number"
+        },
+        {
+          "name": "title",
+          "class": "string"
+        },
+        {
+          "name": "nextStage",
+          "class": "string"
+        },
+        {
+          "name": "isMobile",
+          "class": "boolean"
+        }
+      ]
+    }
+  ]
+}
