@@ -29,9 +29,7 @@ function createHtml(dataPath, templatePath, outputPath, callback) {
     .then((data2) => {
       bufferTemplate = data2;
     })
-    .then(() => {
-      return template(bufferTemplate, bufferData, outputPath);
-    })
+    .then(() => template(bufferTemplate, bufferData, outputPath))
     .catch((err) => {
       callback(err);
     })
