@@ -1,32 +1,35 @@
 {
-    "name": "comit-dev-internship-backend-js-async",
-    "version": "1.0.0",
-    "description": "Javascript Async",
-    "main": "index.js",
-    "scripts": {
-        "test": "jest --coverage",
-        "test:watch": "jest --watch",
-        "task002": "node ./task002/app.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Soloton/comit-dev-internship-backend-js-async.git"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/Soloton/comit-dev-internship-backend-js-async/issues"
-    },
-    "homepage": "https://github.com/Soloton/comit-dev-internship-backend-js-async#readme",
-    "devDependencies": {
-        "@babel/preset-env": "^7.16.0",
-        "babel-jest": "^27.3.1",
-        "eslint": "^8.2.0",
-        "jest": "^27.3.1",
-        "prettier": "^2.4.1"
-    },
-    "dependencies": {
-        "mustache": "^4.2.0"
-    }
+  "name": "comit-dev-internship-backend-js-async",
+  "version": "1.0.0",
+  "description": "Javascript Async",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "task002": "node ./task002/app.js",
+    "task004": "node ./task004/node-tail.js --help"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Soloton/comit-dev-internship-backend-js-async.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Soloton/comit-dev-internship-backend-js-async/issues"
+  },
+  "homepage": "https://github.com/Soloton/comit-dev-internship-backend-js-async#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.0",
+    "babel-jest": "^27.3.1",
+    "eslint": "^8.2.0",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1"
+  },
+  "dependencies": {
+    "mustache": "^4.2.0",
+    "yargs": "^17.2.1",
+    "yargs-parser": "^20.2.9"
+  }
 }
