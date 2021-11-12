@@ -25,7 +25,6 @@ const argv = yargs(hideBin(process.argv))
     description: "Never output headers giving file names",
   })
   .command("$0 [files..]", "file list")
-  .alias("h", "help")
   .parserConfiguration({
     "short-option-groups": true,
     "parse-numbers": true,
