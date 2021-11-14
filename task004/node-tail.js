@@ -1,3 +1,7 @@
+const {
+  stringWithPossiblePlusToInteger,
+} = require("./string-with-possible-plus-to-integer");
+
 const yargs = require("yargs/yargs");
 const { hideBin } = require("yargs/helpers");
 
@@ -29,26 +33,17 @@ const argv = yargs(hideBin(process.argv))
     "short-option-groups": true,
     "parse-numbers": true,
   })
-  .middleware((arg) => {
-    if (arg.lines) {
-      const pi = filterInt(arg.lines);
-      if (isNaN(pi)) {
-        console.error("ERROR: Lines argument is not a number");
-        process.exit(1);
-      }
-      return { lines: pi, n: pi };
-    }
-  }).argv;
+  .middleware(processParameterWithPossiblePlus).argv;
 
 console.log(argv);
 
-function filterInt(value) {
-  if (/^[+]?(\d+)$/.test(value)) {
-    let number = Number(value);
-    if (value[0] === "+") {
-      return number;
+function processParameterWithPossiblePlus(arg) {
+  if (arg.lines) {
+    const pi = stringWithPossiblePlusToInteger(arg.lines);
+    if (isNaN(pi)) {
+      console.error("ERROR: Lines argument is not a number");
+      process.exit(1);
     }
-    return -number;
+    return { lines: pi, n: pi };
   }
-  return NaN;
 }
