@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <style>
+        li, ul.param {
+            display: inline;
+            list-style: none;
+        }
+
+        ul.param {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul.param li:after {
+            content: ",";
+        }
+
+        ul.param li:last-child:after {
+            content: none;
+        }
+
+        ul.field li:after {
+            content: ";";
+        }
+
+        ul.field li:last-child:after {
+            content: none;
+        }
+
+        ul li {
+            margin-left: 0;
+        }
+
+        ul.field li span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<h1>{{title}}</h1>
+{{#classes}}
+    <h2>{{class}}{{#extends}}: {{.}}{{/extends}}</h2>
+    {{#staticMethods}}
+        <ul class='method'>static {{modifier}} {{> method}}</ul>
+    {{/staticMethods}}
+
+    {{#staticFields}}
+        <ul class='field'>static {{modifier}} {{> field}};</ul>
+    {{/staticFields}}
+
+    {{#methods}}
+        <ul class='method'>{{modifier}} {{> method}}</ul>
+    {{/methods}}
+
+    {{#fields}}
+        <ul class='field'>{{modifier}} {{> field}};</ul>
+    {{/fields}}
+
+    {{#privateMethods}}
+        <ul class='method'>private {{modifier}} {{> method}}</ul>
+    {{/privateMethods}}
+
+    {{#privateFields}}
+        <ul class='field'>private {{modifier}} {{> field}};</ul>
+    {{/privateFields}}
+
+{{/classes}}
+</body>
+</html>

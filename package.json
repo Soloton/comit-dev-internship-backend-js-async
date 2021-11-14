@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "jest --coverage",
-        "test:watch": "jest --watch"
+        "test:watch": "jest --watch",
+        "task002": "node ./task002/app.js"
     },
     "repository": {
         "type": "git",
@@ -24,5 +25,8 @@
         "eslint": "^8.2.0",
         "jest": "^27.3.1",
         "prettier": "^2.4.1"
+    },
+    "dependencies": {
+        "mustache": "^4.2.0"
     }
 }
