@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Javascript Async",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --watch",
@@ -23,7 +24,8 @@
   "devDependencies": {
     "@babel/preset-env": "^7.16.0",
     "babel-jest": "^27.3.1",
-    "eslint": "^8.2.0",
+    "eslint-config-kentcdodds": "^19.2.0",
+    "faker": "^5.5.3",
     "jest": "^27.3.1",
     "prettier": "^2.4.1"
   },

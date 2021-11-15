@@ -3,12 +3,16 @@
     "node": true,
     "jest": true
   },
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "kentcdodds"
+  ],
   "parserOptions": {
-    "ecmaVersion": 2015,
+    "ecmaVersion": 2017,
     "sourceType": "module"
   },
   "rules": {
+    "global-require": "off",
     "semi": [
       "error",
       "always"
