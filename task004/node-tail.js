@@ -38,12 +38,15 @@ const argv = yargs(hideBin(process.argv))
 console.log(argv);
 
 function processParameterWithPossiblePlus(arg) {
-  if (arg.lines) {
-    const pi = stringWithPossiblePlusToInteger(arg.lines);
-    if (isNaN(pi)) {
-      console.error("ERROR: Lines argument is not a number");
-      process.exit(1);
-    }
-    return { lines: pi, n: pi };
+  if (!arg.lines) {
+    return undefined;
   }
+
+  const integerLines = stringWithPossiblePlusToInteger(arg.lines);
+  if (isNaN(integerLines)) {
+    console.error("ERROR: Lines argument is not a number");
+    process.exit(1);
+  }
+
+  return { lines: integerLines, n: integerLines };
 }
