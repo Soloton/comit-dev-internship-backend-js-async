@@ -1,7 +1,10 @@
-import fs from "fs";
-import os from "os";
-import faker from "faker";
-import { getLastLineOffset, getLineOffset } from "../tail";
+const fs = require("fs");
+const os = require("os");
+const faker = require("faker");
+const {
+  getLastLineOffset,
+  getLineOffset,
+} = require("../tail");
 
 function random(min, max) {
   return Math.trunc(Math.random() * (max - min + 1)) + min;

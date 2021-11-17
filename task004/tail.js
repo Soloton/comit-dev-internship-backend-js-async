@@ -1,7 +1,7 @@
-import fs from "fs";
-import { isInt } from "./isInt";
+const fs = require("fs");
+const isInt = require("./isInt");
 
-export function getLastLineOffset(fileName, lines) {
+function getLastLineOffset(fileName, lines) {
   if (!isInt(lines)) {
     return Promise.reject(`Value ${lines} is not an integer`);
   }
@@ -38,7 +38,7 @@ export function getLastLineOffset(fileName, lines) {
   });
 }
 
-export function getLineOffset(fileName, lines) {
+function getLineOffset(fileName, lines) {
   if (lines === 0) return Promise.resolve(0);
 
   return new Promise((resolve, reject) => {
@@ -63,3 +63,7 @@ export function getLineOffset(fileName, lines) {
       });
   });
 }
+module.exports = {
+  getLastLineOffset,
+  getLineOffset,
+};

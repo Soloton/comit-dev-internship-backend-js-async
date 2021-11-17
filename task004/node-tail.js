@@ -1,9 +1,12 @@
+const yargs = require("yargs/yargs");
+
+const { hideBin } = require("yargs/helpers");
+
 const {
   stringWithPossiblePlusToInteger,
-} = require("./string-with-possible-plus-to-integer");
+} = require("./string-with-possible-plus-to-integer.js");
 
-const yargs = require("yargs/yargs");
-const { hideBin } = require("yargs/helpers");
+const { tail } = require("./tail");
 
 const argv = yargs(hideBin(process.argv))
   .detectLocale(false)
