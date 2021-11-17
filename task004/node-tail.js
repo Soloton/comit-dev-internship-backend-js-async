@@ -14,8 +14,7 @@ const argv = yargs(hideBin(process.argv))
     "Usage: $0 [OPTION]... [FILE]...\n" +
       "Print the last 10 lines of each FILE to standard output.\n" +
       "With more than one FILE, precede each with a header giving the file name.\n\n" +
-      "With no FILE, or when FILE is -, read standard input.\n\n" +
-      "Mandatory arguments to long options are mandatory for short options too."
+      "With no FILE, or when FILE is -, read standard input.\n\n"
   )
   .option("lines", {
     alias: "n",
@@ -23,6 +22,8 @@ const argv = yargs(hideBin(process.argv))
     default: 10,
     description:
       "Output the last NUM lines, instead of the last 10;\n" +
+      // todo Обрабатывать последние несколько строк или первые несколько строк,
+      //  в зависимости от аргумента --lines
       "or use -n +NUM to output starting with line NUM",
   })
   .option("quiet", {
@@ -38,6 +39,7 @@ const argv = yargs(hideBin(process.argv))
   })
   .middleware(processParameterWithPossiblePlus).argv;
 
+tail(argv.files, argv.lines, argv.quite);
 console.log(argv);
 
 function processParameterWithPossiblePlus(arg) {
