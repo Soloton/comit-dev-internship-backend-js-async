@@ -1,5 +1,4 @@
 const fs = require("fs");
-const os = require("os");
 const faker = require("faker");
 const {
   getLastLineOffset,
@@ -20,7 +19,7 @@ function checkOffset(
   dataAppendLineCount,
   dataLineCount
 ) {
-  fs.writeFileSync(fileName, data + os.EOL + dataAppend);
+  fs.writeFileSync(fileName, `${data}\n${dataAppend}`);
 
   it(`the last line is correct (${dataAppendLineCount})`, async () => {
     expect(await getLastLineOffset(fileName, dataAppendLineCount)).toBe(
@@ -61,7 +60,7 @@ describe("TAIL", () => {
     const data = "ONE";
 
     const dataAppend = "TWOS";
-    fs.writeFileSync(fileName, data + os.EOL + dataAppend);
+    fs.writeFileSync(fileName, `${data}\n${dataAppend}`);
 
     it("the line -1 is correct", async () => {
       expect(await getLastLineOffset(fileName, 1)).toBe(4);
@@ -97,7 +96,7 @@ describe("TAIL", () => {
 
     const dataAppendLineCount = random(2, 50);
     const dataAppend = faker.lorem.lines(dataAppendLineCount);
-    fs.writeFileSync(fileName, data + os.EOL + dataAppend);
+    fs.writeFileSync(fileName, `${data}\n${dataAppend}`);
 
     it("value (0) is valid", async () => {
       expect(await tailOneFile(fileName, 0)).toBe("");
