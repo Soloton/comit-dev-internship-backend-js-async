@@ -33,6 +33,18 @@ function checkOffset(
 }
 
 describe("TAIL", () => {
+  describe("BIG Const offset of", () => {
+    const fileName = "/tmp/00.txt";
+    const dataLineCount = 10000 + random(2, 500);
+    const data = `${"*".repeat(9)}\n`.repeat(dataLineCount).slice(0, -1);
+
+    const dataAppendLineCount = 10000 + random(2, 500);
+    const dataAppend = `${"*".repeat(9)}\n`
+      .repeat(dataAppendLineCount)
+      .slice(0, -1);
+    checkOffset(fileName, data, dataAppend, dataAppendLineCount, dataLineCount);
+  });
+
   describe("Const offset of", () => {
     const fileName = "/tmp/0.txt";
     const dataLineCount = random(2, 5);
@@ -87,6 +99,24 @@ describe("TAIL", () => {
     });
   });
 
+  describe("Show many lines", () => {
+    const fileName = "/tmp/4.txt";
+    const dataLineCount = 2000 + random(2, 10);
+    const data = faker.lorem.lines(dataLineCount);
+
+    const dataAppendLineCount = 2000 + random(2, 50);
+    const dataAppend = faker.lorem.lines(dataAppendLineCount);
+    fs.writeFileSync(fileName, `${data}\n|||\n${dataAppend}`);
+
+    it(`getLastLines: normal value (${dataAppendLineCount}) it valid`, async () => {
+      expect(await getLastLines(fileName, dataAppendLineCount)).toBe(
+        dataAppend
+      );
+    });
+
+    it(`getLines: normal value (${dataLineCount}) it valid`, async () => {
+      expect(await getLines(fileName, dataLineCount)).toBe(data);
+    });
   });
 
   describe("Tail one line", () => {
@@ -116,6 +146,11 @@ describe("TAIL", () => {
   describe("CONST Tail one line", () => {
     const fileName = "/tmp/01.txt";
 
+    fs.writeFileSync(
+      fileName,
+      "1*********\n2*********\n3*********\n4*********\n5*********"
+    );
+
     it("value (-0) is valid", async () => {
       expect(await tailOneFile(fileName, -0)).toBe("");
     });
@@ -125,37 +160,31 @@ describe("TAIL", () => {
     });
 
     it("value (-2) is valid", async () => {
-      expect(await tailOneFile(fileName, -2)).toBe(`4*********
-5*********`);
+      expect(await tailOneFile(fileName, -2)).toBe("4*********\n5*********");
     });
 
     it("value (-3) is valid", async () => {
-      expect(await tailOneFile(fileName, -3)).toBe(`3*********
-4*********
-5*********`);
+      expect(await tailOneFile(fileName, -3)).toBe(
+        "3*********\n4*********\n5*********"
+      );
     });
 
     it("value (-4) is valid", async () => {
-      expect(await tailOneFile(fileName, -4)).toBe(`2*********
-3*********
-4*********
-5*********`);
+      expect(await tailOneFile(fileName, -4)).toBe(
+        "2*********\n3*********\n4*********\n5*********"
+      );
     });
 
     it("value (-5) is valid", async () => {
-      expect(await tailOneFile(fileName, -5)).toBe(`1*********
-2*********
-3*********
-4*********
-5*********`);
+      expect(await tailOneFile(fileName, -5)).toBe(
+        "1*********\n2*********\n3*********\n4*********\n5*********"
+      );
     });
 
     it("value (-6) is valid", async () => {
-      expect(await tailOneFile(fileName, -6)).toBe(`1*********
-2*********
-3*********
-4*********
-5*********`);
+      expect(await tailOneFile(fileName, -6)).toBe(
+        "1*********\n2*********\n3*********\n4*********\n5*********"
+      );
     });
 
     it(`value (${0}) is valid`, async () => {
@@ -167,37 +196,31 @@ describe("TAIL", () => {
     });
 
     it(`value (${2}) is valid`, async () => {
-      expect(await tailOneFile(fileName, 2)).toBe(`1*********
-2*********`);
+      expect(await tailOneFile(fileName, 2)).toBe("1*********\n2*********");
     });
 
     it(`value (${3}) is valid`, async () => {
-      expect(await tailOneFile(fileName, 3)).toBe(`1*********
-2*********
-3*********`);
+      expect(await tailOneFile(fileName, 3)).toBe(
+        "1*********\n2*********\n3*********"
+      );
     });
 
     it(`value (${4}) is valid`, async () => {
-      expect(await tailOneFile(fileName, 4)).toBe(`1*********
-2*********
-3*********
-4*********`);
+      expect(await tailOneFile(fileName, 4)).toBe(
+        "1*********\n2*********\n3*********\n4*********"
+      );
     });
 
     it(`value (${5}) is valid`, async () => {
-      expect(await tailOneFile(fileName, 5)).toBe(`1*********
-2*********
-3*********
-4*********
-5*********`);
+      expect(await tailOneFile(fileName, 5)).toBe(
+        "1*********\n2*********\n3*********\n4*********\n5*********"
+      );
     });
 
     it(`value (${6}) is valid`, async () => {
-      expect(await tailOneFile(fileName, 6)).toBe(`1*********
-2*********
-3*********
-4*********
-5*********`);
+      expect(await tailOneFile(fileName, 6)).toBe(
+        "1*********\n2*********\n3*********\n4*********\n5*********"
+      );
     });
   });
 });

@@ -17,24 +17,28 @@ function getLastLineOffset(fileName, lines) {
       return Promise.reject(`Value ${lines} is not an integer`);
     }
 
-    let linesCount = 0;
+    let previousChunkLinesCount = 0;
     let previousChunkOffset = 0;
-    const lineOffsets = [];
+    const result = [];
 
     return fs
       .createReadStream(fileName)
       .on("error", () => reject)
       .on("data", (chunk) => {
-        const offset = previousChunkOffset + chunk.length;
-        for (let i = previousChunkOffset; i < offset; ++i)
+        let currentChunkLinesCount = 0;
+        for (let i = 0; i < chunk.length; ++i)
           if (chunk[i] === 10) {
-            lineOffsets[1 + linesCount++] = i + previousChunkOffset;
+            result[previousChunkLinesCount + 1 + currentChunkLinesCount++] =
+              i + previousChunkOffset;
           }
         previousChunkOffset += chunk.length;
+        previousChunkLinesCount += currentChunkLinesCount;
       })
       .on("end", () => {
         resolve(
-          linesCount < lines ? 0 : lineOffsets[linesCount - lines + 1] + 1
+          previousChunkLinesCount < lines
+            ? 0
+            : result[result.length - lines] + 1
         );
       });
   });
@@ -44,17 +48,16 @@ function getLineOffset(fileName, lines) {
   if (lines === 0) return Promise.resolve(0);
 
   return new Promise((resolve, reject) => {
-    let linesCount = 0;
+    let currentLinesCount = 0;
     let previousChunkOffset = 0;
 
     return fs
       .createReadStream(fileName)
       .on("error", () => reject)
       .on("data", (chunk) => {
-        const offset = previousChunkOffset + chunk.length;
-        for (let i = previousChunkOffset; i < offset; ++i)
+        for (let i = 0; i < chunk.length; ++i)
           if (chunk[i] === 10) {
-            if (lines <= ++linesCount) {
+            if (lines <= ++currentLinesCount) {
               resolve(i + previousChunkOffset);
             }
           }
@@ -92,14 +95,9 @@ async function getLastLines(fileName, lines) {
             .on("data", (chunk) => {
               const offset = previousChunkOffset + chunk.length;
 
-              if (offset < lastLineOffset) {
-                return;
+              if (offset >= lastLineOffset) {
+                result += chunk.toString().substr(lastLineOffset - offset);
               }
-
-              result += chunk
-                .toString()
-                .substr(lastLineOffset - previousChunkOffset);
-
               previousChunkOffset += chunk.length;
             })
             .on("end", () => {
@@ -136,13 +134,16 @@ async function getLines(fileName, lines) {
             .on("data", (chunk) => {
               const offset = previousChunkOffset + chunk.length;
 
-              if (previousChunkOffset > lineOffset) {
+              if (previousChunkOffset > lineOffset && offset > lineOffset) {
                 resolve(result);
               }
 
               result += chunk
                 .toString()
-                .substr(0, Math.min(lineOffset, chunk.length));
+                .substr(
+                  0,
+                  Math.min(lineOffset - previousChunkOffset, chunk.length)
+                );
 
               previousChunkOffset += chunk.length;
             })
@@ -171,28 +172,10 @@ async function tailOneFile(fileName, lines) {
   return "";
 }
 
-function tail(fileList, lines, quiet) {
-  if (fileList.length === 1) {
-    quiet = true;
-  }
-
-  fileList.forEach((fileName) => {
-    if (!quiet) {
-      console.log(`==> ${fileName} <==`);
-    }
-
-    if (lines === 0) {
-      return;
-    }
-    nop();
-  });
-}
-
 module.exports = {
   getLastLineOffset,
   getLineOffset,
   getLastLines,
   getLines,
   tailOneFile,
-  tail,
 };
