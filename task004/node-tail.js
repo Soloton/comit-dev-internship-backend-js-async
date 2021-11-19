@@ -13,8 +13,7 @@ const argv = yargs(hideBin(process.argv))
   .usage(
     "Usage: $0 [OPTION]... [FILE]...\n" +
       "Print the last 10 lines of each FILE to standard output.\n" +
-      "With more than one FILE, precede each with a header giving the file name.\n\n" +
-      "With no FILE, or when FILE is -, read standard input.\n\n"
+      "With more than one FILE, precede each with a header giving the file name.\n\n"
   )
   .option("lines", {
     alias: "n",
