@@ -23,6 +23,12 @@ const argv = yargs(hideBin(process.argv))
       "Output the last NUM lines, instead of the last 10;\n" +
       "or use -n +NUM to output starting with line NUM",
   })
+  .option("output", {
+    alias: "o",
+    type: "string",
+    description:
+      "Set output file name. If not defined, use the standard output",
+  })
   .option("quiet", {
     alias: ["q", "silent"],
     type: "boolean",
@@ -36,8 +42,7 @@ const argv = yargs(hideBin(process.argv))
   })
   .middleware(processParameterWithPossiblePlus).argv;
 
-tail(argv.files, argv.lines, argv.quiet);
-console.log(argv);
+tail(argv.files, argv.lines, argv.quiet, argv.output);
 
 function processParameterWithPossiblePlus(arg) {
   if (!arg.lines) {

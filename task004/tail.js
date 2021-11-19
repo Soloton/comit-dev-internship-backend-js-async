@@ -172,24 +172,29 @@ async function tailOneFile(fileName, lines) {
   return "";
 }
 
-function tail(fileList, lines, quiet) {
+function tail(fileList, lines, quiet, output) {
+  output = output ? fs.createWriteStream(output) : process.stdout;
+
   if (fileList.length === 1) {
     quiet = true;
   }
 
-  promiseSequence(fileList, (fileName) => {
+  promiseSequence(fileList, output, (fileName) => {
     if (!quiet) {
-      console.log(`==> ${fileName} <==`);
+      output.write(`==> ${fileName} <==
+`);
     }
 
     if (lines !== 0) {
       return tailOneFile(fileName, lines);
     }
     return undefined;
+  }).then(() => {
+    output.end();
   });
 }
 
-function promiseSequence(fileList, promiseMaker) {
+function promiseSequence(fileList, outputStream, promiseMaker) {
   fileList = [...fileList];
   function handleNextInput(outputs) {
     if (fileList.length === 0) {
@@ -197,7 +202,10 @@ function promiseSequence(fileList, promiseMaker) {
     } else {
       const nextInput = fileList.shift();
       return promiseMaker(nextInput)
-        .then((output) => console.log(output))
+        .then((output) => outputStream.write(output))
+        .then(async () => {
+          return outputStream.write("\n");
+        })
         .then(handleNextInput);
     }
   }

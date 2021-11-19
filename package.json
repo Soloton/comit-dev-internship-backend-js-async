@@ -7,7 +7,7 @@
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "task002": "node ./task002/app.js",
-    "task004": "node ./task004/node-tail.js -q -n+3 /tmp/1.txt /tmp/2.txt"
+    "task004": "node ./task004/node-tail.js -q -n+1 /tmp/01.txt /tmp/2.txt -o ./out.txt"
   },
   "repository": {
     "type": "git",
