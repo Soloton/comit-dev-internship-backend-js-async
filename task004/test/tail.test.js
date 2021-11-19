@@ -47,10 +47,10 @@ describe("TAIL", () => {
 
   describe("Const offset of", () => {
     const fileName = "/tmp/0.txt";
-    const dataLineCount = random(2, 5);
+    const dataLineCount = random(2, 50);
     const data = `${"*".repeat(9)}\n`.repeat(dataLineCount).slice(0, -1);
 
-    const dataAppendLineCount = random(2, 5);
+    const dataAppendLineCount = random(2, 50);
     const dataAppend = `${"*".repeat(9)}\n`
       .repeat(dataAppendLineCount)
       .slice(0, -1);

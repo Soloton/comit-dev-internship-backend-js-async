@@ -75,7 +75,7 @@ async function getLastLines(fileName, lines) {
     .catch((err) => {
       throw err;
     })
-    .then(async () => {
+    .then(() => {
       if (!isInt(lines)) {
         return Promise.reject(`Value ${lines} is not an integer`);
       }
@@ -114,7 +114,7 @@ async function getLines(fileName, lines) {
     .catch((err) => {
       throw err;
     })
-    .then(async () => {
+    .then(() => {
       if (!isInt(lines)) {
         return Promise.reject(`Value ${lines} is not an integer`);
       }
@@ -172,10 +172,43 @@ async function tailOneFile(fileName, lines) {
   return "";
 }
 
+function tail(fileList, lines, quiet) {
+  if (fileList.length === 1) {
+    quiet = true;
+  }
+
+  promiseSequence(fileList, (fileName) => {
+    if (!quiet) {
+      console.log(`==> ${fileName} <==`);
+    }
+
+    if (lines !== 0) {
+      return tailOneFile(fileName, lines);
+    }
+    return undefined;
+  });
+}
+
+function promiseSequence(fileList, promiseMaker) {
+  fileList = [...fileList];
+  function handleNextInput(outputs) {
+    if (fileList.length === 0) {
+      return outputs;
+    } else {
+      const nextInput = fileList.shift();
+      return promiseMaker(nextInput)
+        .then((output) => console.log(output))
+        .then(handleNextInput);
+    }
+  }
+  return Promise.resolve([]).then(handleNextInput);
+}
+
 module.exports = {
   getLastLineOffset,
   getLineOffset,
   getLastLines,
   getLines,
   tailOneFile,
+  tail,
 };

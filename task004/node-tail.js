@@ -22,8 +22,6 @@ const argv = yargs(hideBin(process.argv))
     default: 10,
     description:
       "Output the last NUM lines, instead of the last 10;\n" +
-      // todo Обрабатывать последние несколько строк или первые несколько строк,
-      //  в зависимости от аргумента --lines
       "or use -n +NUM to output starting with line NUM",
   })
   .option("quiet", {
@@ -39,7 +37,7 @@ const argv = yargs(hideBin(process.argv))
   })
   .middleware(processParameterWithPossiblePlus).argv;
 
-tail(argv.files, argv.lines, argv.quite);
+tail(argv.files, argv.lines, argv.quiet);
 console.log(argv);
 
 function processParameterWithPossiblePlus(arg) {

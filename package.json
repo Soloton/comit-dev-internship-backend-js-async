@@ -3,12 +3,11 @@
   "version": "1.0.0",
   "description": "Javascript Async",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "jest --coverage",
     "test:watch": "jest --watch",
     "task002": "node ./task002/app.js",
-    "task004": "node ./task004/node-tail.js --help"
+    "task004": "node ./task004/node-tail.js -q -n+3 /tmp/1.txt /tmp/2.txt"
   },
   "repository": {
     "type": "git",
